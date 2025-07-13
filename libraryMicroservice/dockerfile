@@ -1,0 +1,12 @@
+# Dockerfile for library
+FROM openjdk:17-jdk-slim
+
+RUN apt update && apt install -y unzip
+
+WORKDIR /app
+
+COPY target/library-0.0.1-SNAPSHOT.jar app.jar
+
+EXPOSE 8082
+
+ENTRYPOINT ["java", "-jar", "app.jar","--server.port=8082"]

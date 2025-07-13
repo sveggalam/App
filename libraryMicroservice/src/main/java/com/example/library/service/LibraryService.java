@@ -1,0 +1,92 @@
+package com.example.library.service;
+
+// import org.apache.tomcat.jni.Library;
+import org.springframework.stereotype.Service;
+
+import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.example.library.model.Library;
+import jakarta.validation.Valid;
+import java.io.File;
+import java.util.*;
+
+@Service
+public class LibraryService {
+
+   private static final String FILE_PATH = "library.json";
+    private final ObjectMapper objectMapper = new ObjectMapper();
+    private Map<Integer,String> idSubjectsMapper = new HashMap<>();
+    private static final Map<String, List<String>> courseBooks = Map.ofEntries(
+        Map.entry("Java", List.of("Effective Java", "Java Concurrency in Practice", "Spring in Action", "Head First Java", "Clean Code", "Java Performance")),
+        Map.entry("Python", List.of("Fluent Python", "Automate the Boring Stuff with Python", "Python Crash Course", "Effective Python", "Learning Python", "Python Tricks")),
+        Map.entry("C++", List.of("Effective Modern C++", "The C++ Programming Language", "Accelerated C++", "C++ Primer", "C++ Concurrency in Action", "C++ Templates")),
+        Map.entry("JavaScript", List.of("You Don’t Know JS", "Eloquent JavaScript", "JavaScript: The Good Parts", "JavaScript: The Definitive Guide", "Learning JavaScript Design Patterns", "Secrets of the JavaScript Ninja")),
+        Map.entry("Go", List.of("The Go Programming Language", "Go in Action", "Concurrency in Go", "Go Web Programming", "Mastering Go", "Go Design Patterns")),
+        Map.entry("Rust", List.of("The Rust Programming Language", "Programming Rust", "Rust in Action", "Rust by Example", "Hands-On Concurrency with Rust", "Zero To Production In Rust")),
+        Map.entry("C", List.of("The C Programming Language", "C in Depth", "Expert C Programming", "C Pocket Reference", "21st Century C", "C Programming: A Modern Approach")),
+        Map.entry("Ruby", List.of("The Well-Grounded Rubyist", "Eloquent Ruby", "Practical Object-Oriented Design in Ruby", "Ruby on Rails Tutorial", "Programming Ruby", "Metaprogramming Ruby")),
+        Map.entry("Kotlin", List.of("Kotlin in Action", "Atomic Kotlin", "Kotlin Programming: The Big Nerd Ranch Guide", "Programming Kotlin", "Kotlin for Android Developers", "Head First Kotlin")),
+        Map.entry("Swift", List.of("Swift Programming: The Big Nerd Ranch Guide", "iOS Programming with Swift", "Swift for Beginners", "Hacking with Swift", "Advanced Swift", "Pro Swift")),
+        Map.entry("PHP", List.of("PHP Objects, Patterns, and Practice", "Modern PHP", "PHP & MySQL: Novice to Ninja", "PHP Cookbook", "Laravel: Up and Running", "Programming PHP")),
+        Map.entry("C#", List.of("C# in Depth", "Pro C# 10 with .NET 6", "CLR via C#", "Head First C#", "The C# Player's Guide", "C# 10 and .NET 6 – Modern Cross-Platform Development")),
+        Map.entry("Scala", List.of("Programming in Scala", "Scala for the Impatient", "Functional Programming in Scala", "Scala Cookbook", "Scala Design Patterns", "Learning Scala")),
+        Map.entry("Perl", List.of("Programming Perl", "Learning Perl", "Intermediate Perl", "Modern Perl", "Perl Best Practices", "Perl Cookbook")),
+        Map.entry("TypeScript", List.of("Programming TypeScript", "TypeScript Quickly", "Effective TypeScript", "TypeScript in Plain Language", "Learning TypeScript", "TypeScript Design Patterns"))
+    );
+
+    private List<Library> readFromFile() {
+        try {
+            File file = new File(FILE_PATH);
+            if (!file.exists()) return new ArrayList<>();
+            return objectMapper.readValue(file, new TypeReference<List<Library>>() {});
+        } catch (Exception e) {
+            e.printStackTrace();
+            return new ArrayList<>();
+        }
+    }
+
+    private void writeToFile(List<Library> library) {
+        try {
+            objectMapper.writerWithDefaultPrettyPrinter().writeValue(new File(FILE_PATH), library);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    public String register(Library entry){
+        if(entry.getId()==null)
+            return "Validation Failed";
+
+        List<Library>library = readFromFile();
+        if(library.stream().anyMatch(s-> s.getId().equals(entry.getId())))
+            return "Student already exists";
+        // gen a random number
+        library.add(entry);
+        writeToFile(library);
+        idSubjectsMapper.put(entry.getId(),entry.getCourse()); 
+        return "Student registered successfully";
+    }
+    public List<String> getListofBooks(Integer Id){
+        List<Library>entries = readFromFile();
+        if(entries.stream().anyMatch(s-> s.getId().equals(Id))){
+            return courseBooks.get(idSubjectsMapper.get(Id));
+        }
+        return Collections.emptyList();
+    }
+    public boolean checkForBookAccess(Integer id,String bookName){
+        if(!idSubjectsMapper.containsKey(id)){
+            return false;
+        }
+        List<String>books = courseBooks.get(idSubjectsMapper.get(id));
+        if(!books.contains(bookName))
+            return false;
+        return true;
+    }
+    public List<Library> getAllStudents() {
+        return readFromFile();
+    }
+    public List<String> getListofBooksByCourse(String courseName) {
+        return courseBooks.getOrDefault(courseName, Collections.emptyList());
+    }
+    
+}

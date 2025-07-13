@@ -1,0 +1,15 @@
+# Use a lightweight base image with JDK 17
+FROM openjdk:17-jdk-slim
+
+RUN apt update && apt install -y unzip
+# Set working directory inside the container
+WORKDIR /app
+
+# Copy the built JAR from the host's target directory into the container
+COPY target/studentdb-0.0.1-SNAPSHOT.jar app.jar
+
+# Expose port 8080
+EXPOSE 8081
+
+# Command to run the app
+ENTRYPOINT ["java", "-jar", "app.jar","--server.port=8081"]
