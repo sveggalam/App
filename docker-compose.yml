@@ -1,0 +1,46 @@
+version: '3.8'
+
+services:
+  library:
+    build:
+      context: ./libraryMicroservice
+    container_name: library
+    ports:
+      - "8082:8082"  # host:container
+    volumes:
+      - libraryVol:/app # <-- mount volume to expected path
+    networks:
+      - micro-net
+
+  student:
+    build:
+      context: ./studentMicroservice
+    container_name: student
+    ports:
+      - "8081:8081" # host:container
+    volumes:
+      - studentVol:/app # <-- mount volume to expected path
+    networks:
+      - micro-net
+    depends_on:
+      - library
+
+networks:
+  micro-net:
+    driver: bridge
+
+volumes:
+  libraryVol:
+  studentVol:
+
+# maintain separate volumes for each service
+# to ensure data persistence and isolation
+# volumes are mounted to the expected paths in the containers
+# this allows for data to be retained even if the containers are recreated
+# otherwise one service loads in another service
+
+# - fullstack:/app
+
+# This line effectively overwrites whatever your Dockerfile placed in /app (which should be studentdb-0.0.1-SNAPSHOT.jar) with the contents of the fullstack named volume on your Docker host.
+
+# If your fullstack volume contains the libraryMicroservice JAR (e.g., if you accidentally built the library service into that volume previously, or if it's pointing to a shared directory that has the wrong JAR), then the student container will end up running the library JAR.
