@@ -1,0 +1,69 @@
+2025-07-16T12:28:17.999+05:30  INFO 27816 --- [main] c.e.studentdb.StudentdbApplication       : Starting StudentdbApplication using Java 21.0.2 with PID 27816 (C:\Users\SUVEGGA\Documents\GitHub\App\studentMicroservice\target\classes started by SUVEGGA in C:\Users\SUVEGGA\Documents\GitHub\App\studentMicroservice)
+2025-07-16T12:28:18.002+05:30  INFO 27816 --- [main] c.e.studentdb.StudentdbApplication       : No active profile set, falling back to 1 default profile: "default"
+2025-07-16T12:28:19.115+05:30  INFO 27816 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port 8081 (http)
+2025-07-16T12:28:19.127+05:30  INFO 27816 --- [main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2025-07-16T12:28:19.128+05:30  INFO 27816 --- [main] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/10.1.42]
+2025-07-16T12:28:19.170+05:30  INFO 27816 --- [main] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2025-07-16T12:28:19.171+05:30  INFO 27816 --- [main] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 1130 ms
+2025-07-16T12:28:19.742+05:30  INFO 27816 --- [main] r$InitializeUserDetailsManagerConfigurer : Global AuthenticationManager configured with UserDetailsService bean with name users
+2025-07-16T12:28:20.033+05:30  INFO 27816 --- [main] o.s.b.a.e.web.EndpointLinksResolver      : Exposing 14 endpoints beneath base path '/actuator'
+2025-07-16T12:28:20.367+05:30  INFO 27816 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port 8081 (http) with context path '/'
+2025-07-16T12:28:20.377+05:30  INFO 27816 --- [main] c.e.studentdb.StudentdbApplication       : Started StudentdbApplication in 2.733 seconds (process running for 2.996)
+2025-07-16T12:29:11.589+05:30  INFO 27816 --- [http-nio-8081-exec-1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2025-07-16T12:29:11.590+05:30  INFO 27816 --- [http-nio-8081-exec-1] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2025-07-16T12:29:11.592+05:30  INFO 27816 --- [http-nio-8081-exec-1] o.s.web.servlet.DispatcherServlet        : Completed initialization in 1 ms
+2025-07-16T12:29:12.058+05:30  INFO 27816 --- [http-nio-8081-exec-1] c.e.studentdb.service.StudentService     : Student Inserted Successfully
+2025-07-16T12:29:16.251+05:30  INFO 27816 --- [http-nio-8081-exec-4] c.e.studentdb.service.StudentService     : Student Inserted Successfully
+2025-07-16T12:29:18.951+05:30  INFO 27816 --- [SpringApplicationShutdownHook] o.s.b.w.e.tomcat.GracefulShutdown        : Commencing graceful shutdown. Waiting for active requests to complete
+2025-07-16T12:29:18.960+05:30  INFO 27816 --- [tomcat-shutdown] o.s.b.w.e.tomcat.GracefulShutdown        : Graceful shutdown complete
+2025-07-16T12:30:56.159+05:30  INFO 32596 --- [main] c.e.studentdb.StudentdbApplication       : Starting StudentdbApplication using Java 21.0.2 with PID 32596 (C:\Users\SUVEGGA\Documents\GitHub\App\studentMicroservice\target\classes started by SUVEGGA in C:\Users\SUVEGGA\Documents\GitHub\App\studentMicroservice)
+2025-07-16T12:30:56.162+05:30  INFO 32596 --- [main] c.e.studentdb.StudentdbApplication       : No active profile set, falling back to 1 default profile: "default"
+2025-07-16T12:30:57.352+05:30  INFO 32596 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port 8081 (http)
+2025-07-16T12:30:57.362+05:30  INFO 32596 --- [main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2025-07-16T12:30:57.362+05:30  INFO 32596 --- [main] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/10.1.42]
+2025-07-16T12:30:57.400+05:30  INFO 32596 --- [main] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2025-07-16T12:30:57.400+05:30  INFO 32596 --- [main] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 1186 ms
+2025-07-16T12:30:58.009+05:30  INFO 32596 --- [main] r$InitializeUserDetailsManagerConfigurer : Global AuthenticationManager configured with UserDetailsService bean with name users
+2025-07-16T12:30:58.382+05:30  INFO 32596 --- [main] o.s.b.a.e.web.EndpointLinksResolver      : Exposing 14 endpoints beneath base path '/actuator'
+2025-07-16T12:30:58.784+05:30  INFO 32596 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port 8081 (http) with context path '/'
+2025-07-16T12:30:58.793+05:30  INFO 32596 --- [main] c.e.studentdb.StudentdbApplication       : Started StudentdbApplication in 3.064 seconds (process running for 3.39)
+2025-07-16T12:31:03.456+05:30  INFO 32596 --- [http-nio-8081-exec-1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2025-07-16T12:31:03.457+05:30  INFO 32596 --- [http-nio-8081-exec-1] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2025-07-16T12:31:03.459+05:30  INFO 32596 --- [http-nio-8081-exec-1] o.s.web.servlet.DispatcherServlet        : Completed initialization in 2 ms
+2025-07-16T12:31:08.764+05:30  INFO 32596 --- [http-nio-8081-exec-8] c.e.studentdb.service.StudentService     : Student Inserted Successfully
+2025-07-16T14:21:31.607+05:30  INFO 32596 --- [SpringApplicationShutdownHook] o.s.b.w.e.tomcat.GracefulShutdown        : Commencing graceful shutdown. Waiting for active requests to complete
+2025-07-16T14:21:31.621+05:30  INFO 32596 --- [tomcat-shutdown] o.s.b.w.e.tomcat.GracefulShutdown        : Graceful shutdown complete
+2025-07-16T14:22:08.552+05:30  INFO 33224 --- [main] c.e.studentdb.StudentdbApplication       : Starting StudentdbApplication using Java 21.0.2 with PID 33224 (C:\Users\SUVEGGA\Documents\GitHub\App\studentMicroservice\target\classes started by SUVEGGA in C:\Users\SUVEGGA\Documents\GitHub\App\studentMicroservice)
+2025-07-16T14:22:08.554+05:30  INFO 33224 --- [main] c.e.studentdb.StudentdbApplication       : No active profile set, falling back to 1 default profile: "default"
+2025-07-16T14:22:09.916+05:30  INFO 33224 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port 8081 (http)
+2025-07-16T14:22:09.936+05:30  INFO 33224 --- [main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2025-07-16T14:22:09.936+05:30  INFO 33224 --- [main] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/10.1.42]
+2025-07-16T14:22:10.006+05:30  INFO 33224 --- [main] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2025-07-16T14:22:10.007+05:30  INFO 33224 --- [main] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 1402 ms
+2025-07-16T14:22:10.867+05:30  INFO 33224 --- [main] r$InitializeUserDetailsManagerConfigurer : Global AuthenticationManager configured with UserDetailsService bean with name users
+2025-07-16T14:22:11.353+05:30  INFO 33224 --- [main] o.s.b.a.e.web.EndpointLinksResolver      : Exposing 14 endpoints beneath base path '/actuator'
+2025-07-16T14:22:11.919+05:30  INFO 33224 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port 8081 (http) with context path '/'
+2025-07-16T14:22:11.943+05:30  INFO 33224 --- [main] c.e.studentdb.StudentdbApplication       : Started StudentdbApplication in 3.899 seconds (process running for 4.31)
+2025-07-16T14:28:58.923+05:30  INFO 33224 --- [http-nio-8081-exec-5] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2025-07-16T14:28:58.924+05:30  INFO 33224 --- [http-nio-8081-exec-5] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2025-07-16T14:28:58.928+05:30  INFO 33224 --- [http-nio-8081-exec-5] o.s.web.servlet.DispatcherServlet        : Completed initialization in 4 ms
+2025-07-16T14:28:59.971+05:30  INFO 33224 --- [http-nio-8081-exec-5] c.e.studentdb.service.StudentService     : Student Inserted Successfully
+2025-07-16T14:59:18.658+05:30  INFO 30700 --- [main] c.e.studentdb.StudentdbApplication       : Starting StudentdbApplication using Java 21.0.2 with PID 30700 (C:\Users\SUVEGGA\Documents\GitHub\App\studentMicroservice\target\classes started by SUVEGGA in C:\Users\SUVEGGA\Documents\GitHub\App\studentMicroservice)
+2025-07-16T14:59:18.660+05:30  INFO 30700 --- [main] c.e.studentdb.StudentdbApplication       : No active profile set, falling back to 1 default profile: "default"
+2025-07-16T14:59:20.023+05:30  INFO 30700 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port 8081 (http)
+2025-07-16T14:59:20.036+05:30  INFO 30700 --- [main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2025-07-16T14:59:20.036+05:30  INFO 30700 --- [main] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/10.1.42]
+2025-07-16T14:59:20.082+05:30  INFO 30700 --- [main] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2025-07-16T14:59:20.082+05:30  INFO 30700 --- [main] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 1362 ms
+2025-07-16T14:59:20.900+05:30  INFO 30700 --- [main] r$InitializeUserDetailsManagerConfigurer : Global AuthenticationManager configured with UserDetailsService bean with name users
+2025-07-16T14:59:21.287+05:30  INFO 30700 --- [main] o.s.b.a.e.web.EndpointLinksResolver      : Exposing 14 endpoints beneath base path '/actuator'
+2025-07-16T14:59:21.730+05:30  INFO 30700 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port 8081 (http) with context path '/'
+2025-07-16T14:59:21.744+05:30  INFO 30700 --- [main] c.e.studentdb.StudentdbApplication       : Started StudentdbApplication in 3.605 seconds (process running for 3.928)
+2025-07-16T14:59:28.696+05:30  INFO 30700 --- [http-nio-8081-exec-2] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2025-07-16T14:59:28.696+05:30  INFO 30700 --- [http-nio-8081-exec-2] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2025-07-16T14:59:28.698+05:30  INFO 30700 --- [http-nio-8081-exec-2] o.s.web.servlet.DispatcherServlet        : Completed initialization in 2 ms
+2025-07-16T14:59:29.176+05:30  INFO 30700 --- [http-nio-8081-exec-2] c.e.studentdb.service.StudentService     : Requested for all Students
+2025-07-16T15:02:51.762+05:30  INFO 30700 --- [http-nio-8081-exec-7] c.e.studentdb.service.StudentService     : Student Inserted Successfully
+2025-07-16T15:04:17.681+05:30  INFO 30700 --- [http-nio-8081-exec-9] c.e.studentdb.service.StudentService     : Student Inserted Successfully
+2025-07-16T17:49:14.321+05:30  INFO 30700 --- [SpringApplicationShutdownHook] o.s.b.w.e.tomcat.GracefulShutdown        : Commencing graceful shutdown. Waiting for active requests to complete
+2025-07-16T17:49:14.368+05:30  INFO 30700 --- [tomcat-shutdown] o.s.b.w.e.tomcat.GracefulShutdown        : Graceful shutdown complete

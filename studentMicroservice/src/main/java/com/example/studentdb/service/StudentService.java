@@ -4,12 +4,13 @@ import com.example.studentdb.model.Student;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.reactive.function.client.WebClient;
 import com.example.studentdb.dto.LibraryRegistrationRequest;
 import java.io.File;
 import java.util.*;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import com.example.studentdb.Trie;
 @Service
 
@@ -17,10 +18,10 @@ public class StudentService {
     private static final String FILE_PATH = "students.json";
     private final ObjectMapper objectMapper = new ObjectMapper();
     private Map<Integer,Student> studentMap = new HashMap<>();
-    // private Trie trie = new 
+    private static final Logger logger = LoggerFactory.getLogger(StudentService.class);
 
     private WebClient webClient;
-    @Autowired
+
     public StudentService(WebClient webClient) {
         this.webClient = webClient;
     }
@@ -69,6 +70,7 @@ public class StudentService {
             student.getAge() == null || student.getAge() < 18 ||
             isBlank(student.getCourse()) ||
             student.getMarks() == null) {
+            logger.error("All fields not filled");
             return "Validation failed: all fields must be filled correctly.";
         }
 
@@ -85,6 +87,7 @@ public class StudentService {
         students.add(student);
         
         writeToFile(students,student);
+        logger.info("Student Inserted Successfully");
         return "Student inserted successfully.";
     }
 
@@ -93,11 +96,13 @@ public class StudentService {
         Map<String, Object> result = new HashMap<>();
         result.put("count", students.size());
         result.put("students", students);
+        logger.info("Requested for all Students");
         return result;
     }
 
    public Object getStudentById(Integer id) {
     List<Student> students = readFromFile();
+    logger.info("Requested student {}",id);
     return students.stream()
             .filter(s -> s.getId().equals(id))
             .findFirst()
@@ -122,6 +127,7 @@ public class StudentService {
     }
     public List<Student> searchByFirstName(String firstName) {
         List<Student> students = readFromFile();
+        logger.info("Requested Search by {}",firstName);
         return students.stream()
                 .filter(s -> s.getFirstName().equalsIgnoreCase(firstName))
                 .toList(); // or .collect(Collectors.toList()) if using Java <16
@@ -136,6 +142,7 @@ public class StudentService {
     }
     public Object getTopper() {
         List<Student> students = readFromFile();
+        logger.info("Requested TOpper");
         if (students.isEmpty()) {
             return "No students found.";
         }

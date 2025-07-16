@@ -1,12 +1,12 @@
 package com.example.studentdb.controller;
 
 import com.example.studentdb.model.Student;
+// import com.example.studentdb.service.LibraryService;
 import com.example.studentdb.service.StudentService;
 import jakarta.validation.Valid;
 // import com.example.studentdb.Trie;
 import java.util.List;
 import java.util.Map;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -20,7 +20,7 @@ public class StudentController {
 
     @Autowired
     private StudentService studentService; // dependency injection
-
+    // private static final Logger logger = LoggerFactory.getLogger(StudentController.class);
     // private Trie trie;
    @PostMapping("/insert")
     public ResponseEntity<String> insertStudent(@Valid @RequestBody Student student) {

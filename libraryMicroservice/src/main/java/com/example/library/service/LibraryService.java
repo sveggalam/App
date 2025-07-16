@@ -2,7 +2,8 @@ package com.example.library.service;
 
 // import org.apache.tomcat.jni.Library;
 import org.springframework.stereotype.Service;
-
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.example.library.model.Library;
@@ -12,8 +13,8 @@ import java.util.*;
 
 @Service
 public class LibraryService {
-
-   private static final String FILE_PATH = "library.json";
+    private static final Logger logger = LoggerFactory.getLogger(LibraryService.class);
+    private static final String FILE_PATH = "library.json";
     private final ObjectMapper objectMapper = new ObjectMapper();
     private Map<Integer,String> idSubjectsMapper = new HashMap<>();
     private static final Map<String, List<String>> courseBooks = Map.ofEntries(
@@ -64,10 +65,12 @@ public class LibraryService {
         library.add(entry);
         writeToFile(library);
         idSubjectsMapper.put(entry.getId(),entry.getCourse()); 
+        logger.info("Student Registered Successfully {}",entry.getId() + entry.getCourse());
         return "Student registered successfully";
     }
     public List<String> getListofBooks(Integer Id){
         List<Library>entries = readFromFile();
+        logger.info("Requested List of Books availabale to ID {}",Id);
         if(entries.stream().anyMatch(s-> s.getId().equals(Id))){
             return courseBooks.get(idSubjectsMapper.get(Id));
         }
@@ -83,9 +86,11 @@ public class LibraryService {
         return true;
     }
     public List<Library> getAllStudents() {
+        logger.info("Requested List of all students registered to library");
         return readFromFile();
     }
     public List<String> getListofBooksByCourse(String courseName) {
+        logger.info("Requested books available to people who has course{}",courseName);
         return courseBooks.getOrDefault(courseName, Collections.emptyList());
     }
     
