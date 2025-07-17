@@ -1,9 +1,13 @@
 package com.example.studentdb.model;
 
 import jakarta.validation.constraints.*;
-
+import jakarta.persistence.Entity;
+import jakarta.persistence.Id;
+import jakarta.persistence.Table;
+import jakarta.persistence.GeneratedValue;
+// @Entity
 public class Student {
-
+    // @Id
     @NotNull
     private Integer id;
 
