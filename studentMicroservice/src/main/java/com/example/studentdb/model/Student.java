@@ -5,9 +5,10 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 import jakarta.persistence.GeneratedValue;
-// @Entity
+@Entity
+@Table(name = "student")
 public class Student {
-    // @Id
+    @Id
     @NotNull
     private Integer id;
 

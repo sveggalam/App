@@ -11,3 +11,16 @@
 2025-07-18T12:05:25.855+05:30  INFO 38265 --- [library] [http-nio-8082-exec-1] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
 2025-07-18T12:05:25.858+05:30  INFO 38265 --- [library] [http-nio-8082-exec-1] o.s.web.servlet.DispatcherServlet        : Completed initialization in 2 ms
 2025-07-18T12:05:25.933+05:30  INFO 38265 --- [library] [http-nio-8082-exec-1] c.e.library.service.LibraryService       : Student Registered Successfully 13366633Java
+2025-07-18T13:02:57.326+05:30  INFO 39768 --- [library] [main] com.example.library.LibraryApplication   : Starting LibraryApplication using Java 24.0.1 with PID 39768 (C:\Users\SUVEGGA\Documents\GitHub\App\libraryMicroservice\target\classes started by SUVEGGA in C:\Users\SUVEGGA\Documents\GitHub\App\libraryMicroservice)
+2025-07-18T13:02:57.332+05:30  INFO 39768 --- [library] [main] com.example.library.LibraryApplication   : No active profile set, falling back to 1 default profile: "default"
+2025-07-18T13:02:58.579+05:30  INFO 39768 --- [library] [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port 8082 (http)
+2025-07-18T13:02:58.605+05:30  INFO 39768 --- [library] [main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2025-07-18T13:02:58.605+05:30  INFO 39768 --- [library] [main] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/10.1.16]
+2025-07-18T13:02:58.679+05:30  INFO 39768 --- [library] [main] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2025-07-18T13:02:58.680+05:30  INFO 39768 --- [library] [main] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 1237 ms
+2025-07-18T13:02:59.213+05:30  INFO 39768 --- [library] [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port 8082 (http) with context path ''
+2025-07-18T13:02:59.222+05:30  INFO 39768 --- [library] [main] com.example.library.LibraryApplication   : Started LibraryApplication in 3.026 seconds (process running for 3.526)
+2025-07-18T13:05:47.298+05:30  INFO 39768 --- [library] [http-nio-8082-exec-1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2025-07-18T13:05:47.298+05:30  INFO 39768 --- [library] [http-nio-8082-exec-1] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2025-07-18T13:05:47.299+05:30  INFO 39768 --- [library] [http-nio-8082-exec-1] o.s.web.servlet.DispatcherServlet        : Completed initialization in 0 ms
+2025-07-18T13:05:47.420+05:30  INFO 39768 --- [library] [http-nio-8082-exec-1] c.e.library.service.LibraryService       : Student Registered Successfully 420Java

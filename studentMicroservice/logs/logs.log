@@ -1,22 +1,4 @@
-2025-07-18T12:04:27.742+05:30  INFO 37924 --- [studentdb] [main] c.e.studentdb.StudentdbApplicationTests  : Starting StudentdbApplicationTests using Java 23.0.2 with PID 37924 (started by subhashveggalam in /Users/subhashveggalam/Documents/FULLSTACK/App/App/studentMicroservice)
-2025-07-18T12:04:27.745+05:30  INFO 37924 --- [studentdb] [main] c.e.studentdb.StudentdbApplicationTests  : No active profile set, falling back to 1 default profile: "default"
-2025-07-18T12:04:28.934+05:30  INFO 37924 --- [studentdb] [main] o.s.b.a.e.web.EndpointLinksResolver      : Exposing 14 endpoints beneath base path '/actuator'
-2025-07-18T12:04:28.990+05:30  INFO 37924 --- [studentdb] [main] c.e.studentdb.StudentdbApplicationTests  : Started StudentdbApplicationTests in 1.407 seconds (process running for 1.904)
-2025-07-18T12:04:52.729+05:30  INFO 38371 --- [studentdb] [main] c.e.studentdb.StudentdbApplication       : Starting StudentdbApplication using Java 23.0.2 with PID 38371 (/Users/subhashveggalam/Documents/FULLSTACK/App/App/studentMicroservice/target/classes started by subhashveggalam in /Users/subhashveggalam/Documents/FULLSTACK/App/App/studentMicroservice)
-2025-07-18T12:04:52.730+05:30  INFO 38371 --- [studentdb] [main] c.e.studentdb.StudentdbApplication       : No active profile set, falling back to 1 default profile: "default"
-2025-07-18T12:04:53.267+05:30  INFO 38371 --- [studentdb] [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port 8081 (http)
-2025-07-18T12:04:53.276+05:30  INFO 38371 --- [studentdb] [main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
-2025-07-18T12:04:53.277+05:30  INFO 38371 --- [studentdb] [main] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/10.1.42]
-2025-07-18T12:04:53.297+05:30  INFO 38371 --- [studentdb] [main] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
-2025-07-18T12:04:53.298+05:30  INFO 38371 --- [studentdb] [main] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 546 ms
-2025-07-18T12:04:53.676+05:30  INFO 38371 --- [studentdb] [main] o.s.b.a.e.web.EndpointLinksResolver      : Exposing 14 endpoints beneath base path '/actuator'
-2025-07-18T12:04:53.721+05:30  INFO 38371 --- [studentdb] [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port 8081 (http) with context path '/'
-2025-07-18T12:04:53.729+05:30  INFO 38371 --- [studentdb] [main] c.e.studentdb.StudentdbApplication       : Started StudentdbApplication in 1.21 seconds (process running for 1.367)
-2025-07-18T12:05:25.408+05:30  INFO 38371 --- [studentdb] [http-nio-8081-exec-2] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
-2025-07-18T12:05:25.409+05:30  INFO 38371 --- [studentdb] [http-nio-8081-exec-2] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
-2025-07-18T12:05:25.414+05:30  INFO 38371 --- [studentdb] [http-nio-8081-exec-2] o.s.web.servlet.DispatcherServlet        : Completed initialization in 5 ms
-2025-07-18T12:05:25.558+05:30  WARN 38371 --- [studentdb] [http-nio-8081-exec-2] jakarta.persistence.spi                  : jakarta.persistence.spi::No valid providers found.
-2025-07-18T12:05:25.639+05:30 ERROR 38371 --- [studentdb] [http-nio-8081-exec-2] i.n.r.d.DnsServerAddressStreamProviders  : Unable to load io.netty.resolver.dns.macos.MacOSDnsServerAddressStreamProvider, fallback to system defaults. This may result in incorrect DNS resolutions on MacOS. Check whether you have a dependency on 'io.netty:netty-resolver-dns-native-macos'. Use DEBUG level to see the full stack: java.lang.UnsatisfiedLinkError: failed to load the required native library
-2025-07-18T12:05:25.669+05:30  INFO 38371 --- [studentdb] [http-nio-8081-exec-2] c.e.studentdb.service.StudentService     : Student Inserted Successfully
-2025-07-18T12:05:32.356+05:30  INFO 38371 --- [studentdb] [SpringApplicationShutdownHook] o.s.b.w.e.tomcat.GracefulShutdown        : Commencing graceful shutdown. Waiting for active requests to complete
-2025-07-18T12:05:32.365+05:30  INFO 38371 --- [studentdb] [tomcat-shutdown] o.s.b.w.e.tomcat.GracefulShutdown        : Graceful shutdown complete
+2025-07-21T10:36:29.409+05:30  INFO 25568 --- [studentdb] [main] c.e.studentdb.StudentdbApplicationTests  : Starting StudentdbApplicationTests using Java 24.0.1 with PID 25568 (started by SUVEGGA in C:\Users\SUVEGGA\Documents\GitHub\App\studentMicroservice)
+2025-07-21T10:36:29.416+05:30  INFO 25568 --- [studentdb] [main] c.e.studentdb.StudentdbApplicationTests  : No active profile set, falling back to 1 default profile: "default"
+2025-07-21T10:36:32.885+05:30  INFO 25568 --- [studentdb] [main] o.s.b.a.e.web.EndpointLinksResolver      : Exposing 14 endpoints beneath base path '/actuator'
+2025-07-21T10:36:33.036+05:30  INFO 25568 --- [studentdb] [main] c.e.studentdb.StudentdbApplicationTests  : Started StudentdbApplicationTests in 4.111 seconds (process running for 5.285)
