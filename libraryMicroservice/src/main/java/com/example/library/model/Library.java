@@ -1,7 +1,11 @@
 package com.example.library.model;
+import java.util.List;
+
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 @Entity
 @Table(name="library")
@@ -11,6 +15,10 @@ public class Library {
     private Integer id;
     @Column(name="course")
     private String course;
+
+    @OneToMany(mappedBy = "library", cascade = CascadeType.ALL)
+    private List<Book> books;
+
     public Integer getId(){
         return this.id;
     }
