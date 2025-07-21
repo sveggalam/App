@@ -1,13 +1,15 @@
 package com.example.studentdb.controller;
 
 import com.example.studentdb.model.Student;
+import com.example.studentdb.repository.StudentRepository;
 // import com.example.studentdb.service.LibraryService;
 import com.example.studentdb.service.StudentService;
 import jakarta.validation.Valid;
 // import com.example.studentdb.Trie;
 import java.util.List;
-import java.util.Map;
+// import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
+// import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -20,30 +22,31 @@ public class StudentController {
 
     @Autowired
     private StudentService studentService; // dependency injection
+
+    @Autowired
+    private StudentRepository repo;
     // private static final Logger logger = LoggerFactory.getLogger(StudentController.class);
     // private Trie trie;
    @PostMapping("/insert")
-    public ResponseEntity<String> insertStudent(@Valid @RequestBody Student student) {
-        String result = studentService.insertStudent(student);
-        // trie.insert(student.getFirstName()+" "+student.getLastName(),student);
-        return result.contains("already") ? ResponseEntity.badRequest().body(result)
-                                        : ResponseEntity.ok(result);
+    public ResponseEntity<?> insertStudent(@Valid @RequestBody Student s) {
+        return studentService.addStudent(s);
     }
     //  ResponseEntity is a wrapper of HTTP body
     //  Get all students rest api
     @GetMapping("/allStudents")
-    public ResponseEntity<?> getAll() {
-        return ResponseEntity.ok(studentService.getAllStudents());
+    public ResponseEntity<?>getAll() {
+        // return repo.findAll();
+        return repo.findAll().isEmpty() 
+            ? ResponseEntity.noContent().build() // 204 No Content
+            : ResponseEntity.ok(repo.findAll()); // 200 OK
+        // return ResponseEntity.ok(studentService.getAllStudents());
     }
     // range of marks
-
-    @GetMapping("/marks/{minMarks}/{maxMarks}")
-    public ResponseEntity<Map<String, Object>> getByMarksRange(
-            @PathVariable int minMarks,
-            @PathVariable int maxMarks) {
-
-        Map<String, Object> response = studentService.getStudentsInMarksRange(minMarks, maxMarks);
-        return ResponseEntity.ok(response);
+    // students/marks-range?min=60&max=90
+    @GetMapping("/marks-range")
+    public ResponseEntity<?> getByMarksRange(@RequestParam int min,@RequestParam int max) {
+        List<Student> students = studentService.getByMarksRange(min, max);
+        return ResponseEntity.ok(students);
     }
     public String getMethodName(@RequestParam String param) {
         return new String();
@@ -51,26 +54,27 @@ public class StudentController {
     
     @GetMapping("/{id:\\d+}")
     public ResponseEntity<?> getById(@PathVariable Integer id) {
-        Object result = studentService.getStudentById(id);
-        return result instanceof Student ? ResponseEntity.ok(result)
-                                         : ResponseEntity.status(404).body(result);
+        return studentService.getStudentById(id);
     }
-    @GetMapping("/firstname/{name}")
-    public ResponseEntity<List<Student>> searchByFirstName(@PathVariable String name) {
-        List<Student> result = studentService.searchByFirstName(name);
+    // GET http://localhost:8080/students/by-firstname?name=Alice
+
+    @GetMapping("/firstname")
+    public ResponseEntity<List<Student>> searchByFirstName(@RequestParam String name) {
+        List<Student> result = studentService.getStudentsByFirstName(name);
+        return ResponseEntity.ok(result);
+    }
+    @GetMapping("/lastname")
+    public ResponseEntity<List<Student>> searchByLastName(@RequestParam String name) {
+        List<Student> result = studentService.getStudentsByLastName(name);
         return ResponseEntity.ok(result);
     }
     @GetMapping("/topper")
-    public ResponseEntity<Object> getTopScoringStudent() {
+    public ResponseEntity<List<Student>> getTopScoringStudent() {
         return ResponseEntity.ok(studentService.getTopper());
     }
-    @GetMapping("/stats")
-    public ResponseEntity<Object> getStandardDeviation() {
-        return ResponseEntity.ok(studentService.getStandardDeviation());
-    }
-    // @GetMapping("/")
-    // public ResponseEntity<List<Student>> searchTrie(@RequestParam String name) {
-    //     List<Student> result = studentService.searchTrie(name,trie);
-    //     return ResponseEntity.ok(result);
+    // @GetMapping("/stats")
+    // public ResponseEntity<Object> getStandardDeviation() {
+    //     return ResponseEntity.ok(studentService.getStandardDeviation());
     // }
+
 }

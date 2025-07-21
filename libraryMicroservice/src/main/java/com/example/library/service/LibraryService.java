@@ -1,5 +1,8 @@
 package com.example.library.service;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 // import org.apache.tomcat.jni.Library;
 import org.springframework.stereotype.Service;
 import org.slf4j.Logger;
@@ -7,12 +10,16 @@ import org.slf4j.LoggerFactory;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.example.library.model.Library;
+import com.example.library.repository.LibraryRepository;
+
 import jakarta.validation.Valid;
 import java.io.File;
 import java.util.*;
 
 @Service
 public class LibraryService {
+    @Autowired
+    private LibraryRepository repo;
     private static final Logger logger = LoggerFactory.getLogger(LibraryService.class);
     private static final String FILE_PATH = "library.json";
     private final ObjectMapper objectMapper = new ObjectMapper();
@@ -35,63 +42,41 @@ public class LibraryService {
         Map.entry("TypeScript", List.of("Programming TypeScript", "TypeScript Quickly", "Effective TypeScript", "TypeScript in Plain Language", "Learning TypeScript", "TypeScript Design Patterns"))
     );
 
-    private List<Library> readFromFile() {
-        try {
-            File file = new File(FILE_PATH);
-            if (!file.exists()) return new ArrayList<>();
-            return objectMapper.readValue(file, new TypeReference<List<Library>>() {});
-        } catch (Exception e) {
-            e.printStackTrace();
-            return new ArrayList<>();
-        }
-    }
 
-    private void writeToFile(List<Library> library) {
-        try {
-            objectMapper.writerWithDefaultPrettyPrinter().writeValue(new File(FILE_PATH), library);
-        } catch (Exception e) {
-            e.printStackTrace();
+    public ResponseEntity<?> registerStudent(Library s) {
+        // Check required fields manually
+        if (s.getId() != null && repo.existsById(s.getId())) {
+            return ResponseEntity
+                    .status(HttpStatus.CONFLICT)
+                    .body("Student with ID " + s.getId() + " already exists.");
         }
+        Library savedStudent = repo.save(s);
+        return ResponseEntity.ok(savedStudent);
     }
-
-    public String register(Library entry){
-        if(entry.getId()==null)
-            return "Validation Failed";
-
-        List<Library>library = readFromFile();
-        if(library.stream().anyMatch(s-> s.getId().equals(entry.getId())))
-            return "Student already exists";
-        // gen a random number
-        library.add(entry);
-        writeToFile(library);
-        idSubjectsMapper.put(entry.getId(),entry.getCourse()); 
-        logger.info("Student Registered Successfully {}",entry.getId() + entry.getCourse());
-        return "Student registered successfully";
-    }
-    public List<String> getListofBooks(Integer Id){
-        List<Library>entries = readFromFile();
-        logger.info("Requested List of Books availabale to ID {}",Id);
-        if(entries.stream().anyMatch(s-> s.getId().equals(Id))){
-            return courseBooks.get(idSubjectsMapper.get(Id));
-        }
-        return Collections.emptyList();
-    }
-    public boolean checkForBookAccess(Integer id,String bookName){
-        if(!idSubjectsMapper.containsKey(id)){
-            return false;
-        }
-        List<String>books = courseBooks.get(idSubjectsMapper.get(id));
-        if(!books.contains(bookName))
-            return false;
-        return true;
-    }
-    public List<Library> getAllStudents() {
-        logger.info("Requested List of all students registered to library");
-        return readFromFile();
-    }
-    public List<String> getListofBooksByCourse(String courseName) {
-        logger.info("Requested books available to people who has course{}",courseName);
-        return courseBooks.getOrDefault(courseName, Collections.emptyList());
-    }
+    // public List<String> getListofBooks(Integer Id){
+    //     List<Library>entries = readFromFile();
+    //     logger.info("Requested List of Books availabale to ID {}",Id);
+    //     if(entries.stream().anyMatch(s-> s.getId().equals(Id))){
+    //         return courseBooks.get(idSubjectsMapper.get(Id));
+    //     }
+    //     return Collections.emptyList();
+    // }
+    // public boolean checkForBookAccess(Integer id,String bookName){
+    //     if(!idSubjectsMapper.containsKey(id)){
+    //         return false;
+    //     }
+    //     List<String>books = courseBooks.get(idSubjectsMapper.get(id));
+    //     if(!books.contains(bookName))
+    //         return false;
+    //     return true;
+    // }
+    // public List<Library> getAllStudents() {
+    //     logger.info("Requested List of all students registered to library");
+    //     return readFromFile();
+    // }
+    // public List<String> getListofBooksByCourse(String courseName) {
+    //     logger.info("Requested books available to people who has course{}",courseName);
+    //     return courseBooks.getOrDefault(courseName, Collections.emptyList());
+    // }
     
 }

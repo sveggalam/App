@@ -1,38 +1,44 @@
 package com.example.studentdb.model;
 
 import jakarta.validation.constraints.*;
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
-import jakarta.persistence.GeneratedValue;
 @Entity
 @Table(name = "student")
 public class Student {
+    @Column(name = "id")
     @Id
     @NotNull
     private Integer id;
 
+    @Column(name = "first_name")  
     @NotBlank
-    private String FirstName;
+    private String firstName;
 
+    @Column(name = "last_name")  
     @NotBlank
-    private String LastName;
+    private String lastName;
 
+    @Column(name = "age")
     @NotNull
     @Min(1)
     private Integer age;
 
+    @Column(name = "course")
     @NotBlank
     private String course;
 
+    @Column(name = "marks")
     @NotNull
     private Integer marks;
     // Getters and Setters
     public String getFirstName() {
-        return FirstName;
+        return firstName;
     }
     public void setFirstName(String firstName) {
-        FirstName = firstName;
+        this.firstName = firstName;
     }
     public Integer getMarks() {
         return marks;
@@ -48,10 +54,10 @@ public class Student {
         this.id = id;
     }
     public String getLastName() {
-        return LastName;
+        return lastName;
     }
     public void setLastName(String lastName) {
-        this.LastName = lastName;
+        this.lastName = lastName;
     }
 
     public Integer getAge() {
