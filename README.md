@@ -20,6 +20,23 @@ CREATE TABLE library (
     course VARCHAR(100) NOT NULL
 );
 
+### For creating mess table in test db
+CREATE TABLE mess (
+    id INTEGER PRIMARY KEY,
+    food_type VARCHAR(10) CHECK (food_type IN ('veg', 'nonveg'))
+);
+
+
+
+
+
+
+
+
+
+
+
+
 CREATE TABLE book (
     id SERIAL PRIMARY KEY,
     title VARCHAR(100),

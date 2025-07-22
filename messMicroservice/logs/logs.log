@@ -1,0 +1,13 @@
+2025-07-22T00:36:46.914+05:30  WARN 23420 --- [Mess] [HikariPool-1:housekeeper] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Thread starvation or clock leap detected (housekeeper delta=38m17s202ms).
+2025-07-22T00:53:53.550+05:30  WARN 23420 --- [Mess] [HikariPool-1:housekeeper] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Thread starvation or clock leap detected (housekeeper delta=17m6s637ms).
+2025-07-22T02:12:19.688+05:30  WARN 23420 --- [Mess] [HikariPool-1:housekeeper] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Thread starvation or clock leap detected (housekeeper delta=1h18m26s138ms).
+2025-07-22T03:23:42.106+05:30  WARN 23420 --- [Mess] [HikariPool-1:housekeeper] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Thread starvation or clock leap detected (housekeeper delta=1h11m22s418ms).
+2025-07-22T04:28:35.970+05:30  WARN 23420 --- [Mess] [HikariPool-1:housekeeper] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Thread starvation or clock leap detected (housekeeper delta=1h4m53s864ms).
+2025-07-22T05:31:00.046+05:30  WARN 23420 --- [Mess] [HikariPool-1:housekeeper] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Thread starvation or clock leap detected (housekeeper delta=1h2m24s75ms).
+2025-07-22T06:39:55.672+05:30  WARN 23420 --- [Mess] [HikariPool-1:housekeeper] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Thread starvation or clock leap detected (housekeeper delta=1h8m55s626ms).
+2025-07-22T07:56:20.943+05:30  WARN 23420 --- [Mess] [HikariPool-1:housekeeper] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Thread starvation or clock leap detected (housekeeper delta=1h16m25s270ms).
+2025-07-22T08:22:37.990+05:30  INFO 23420 --- [Mess] [SpringApplicationShutdownHook] o.s.b.w.e.tomcat.GracefulShutdown        : Commencing graceful shutdown. Waiting for active requests to complete
+2025-07-22T08:22:38.028+05:30  INFO 23420 --- [Mess] [tomcat-shutdown] o.s.b.w.e.tomcat.GracefulShutdown        : Graceful shutdown complete
+2025-07-22T08:22:40.260+05:30  INFO 23420 --- [Mess] [SpringApplicationShutdownHook] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
+2025-07-22T08:22:40.301+05:30  INFO 23420 --- [Mess] [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown initiated...
+2025-07-22T08:22:40.319+05:30  INFO 23420 --- [Mess] [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown completed.
