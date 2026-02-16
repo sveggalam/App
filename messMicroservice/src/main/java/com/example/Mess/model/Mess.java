@@ -9,22 +9,29 @@ import jakarta.validation.constraints.NotNull;
 @Entity
 @Table(name = "mess")
 public class Mess {
-    @Column(name = "id")
+
     @Id
+    @Column(name = "id")
     @NotNull
     private Integer id;
+
     @Column(name = "food_type")
     private String foodType;
-    void setId(Integer id) {
-        this.id = id;
-    }
+
     public Integer getId() {
         return id;
     }
+
+    public void setId(Integer id) {   
+        this.id = id;
+    }
+
     public String getFoodType() {
         return foodType;
     }
+
     public void setFoodType(String foodType) {
         this.foodType = foodType;
     }
 }
+

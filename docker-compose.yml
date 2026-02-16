@@ -1,46 +1,136 @@
 version: '3.8'
 
 services:
-  library:
-    build:
-      context: ./libraryMicroservice
-    container_name: library
+
+  # ==============================
+  # STUDENT DATABASE
+  # ==============================
+  student-db:
+    image: postgres:15
+    container_name: student-db
+    environment:
+      POSTGRES_DB: studentdb
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: password
     ports:
-      - "8082:8082"  # host:container
+      - "5433:5432"
     volumes:
-      - libraryVol:/app # <-- mount volume to expected path
+      - student-db-data:/var/lib/postgresql/data
     networks:
       - micro-net
 
+  # ==============================
+  # STUDENT SERVICE
+  # ==============================
   student:
-    build:
-      context: ./studentMicroservice
+    build: ./studentMicroservice
     container_name: student
     ports:
-      - "8081:8081" # host:container
-    volumes:
-      - studentVol:/app # <-- mount volume to expected path
+      - "8081:8081"
+    environment:
+      DB_URL: jdbc:postgresql://student-db:5432/studentdb
+      DB_USER: postgres
+      DB_PASS: password
+    depends_on:
+      - student-db
     networks:
       - micro-net
-    depends_on:
-      - library
 
+  # ==============================
+  # LIBRARY DATABASE
+  # ==============================
+  library-db:
+    image: postgres:15
+    container_name: library-db
+    environment:
+      POSTGRES_DB: librarydb
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: password
+    ports:
+      - "5434:5432"
+    volumes:
+      - library-db-data:/var/lib/postgresql/data
+    networks:
+      - micro-net
+
+  # ==============================
+  # LIBRARY SERVICE
+  # ==============================
+  library:
+    build: ./libraryMicroservice
+    container_name: library
+    ports:
+      - "8082:8082"
+    environment:
+      DB_URL: jdbc:postgresql://library-db:5432/librarydb
+      DB_USER: postgres
+      DB_PASS: password
+    depends_on:
+      - library-db
+    networks:
+      - micro-net
+
+  # ==============================
+  # MESS DATABASE
+  # ==============================
+  mess-db:
+    image: postgres:15
+    container_name: mess-db
+    environment:
+      POSTGRES_DB: messdb
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: password
+    ports:
+      - "5435:5432"
+    volumes:
+      - mess-db-data:/var/lib/postgresql/data
+    networks:
+      - micro-net
+
+  # ==============================
+  # MESS SERVICE
+  # ==============================
+  mess:
+    build: ./messMicroservice
+    container_name: mess
+    ports:
+      - "8083:8083"
+    environment:
+      DB_URL: jdbc:postgresql://mess-db:5432/messdb
+      DB_USER: postgres
+      DB_PASS: password
+    depends_on:
+      - mess-db
+      - student
+    networks:
+      - micro-net
+
+  # ==============================
+  # API GATEWAY
+  # ==============================
+  gateway:
+    build: ./apiGateway
+    container_name: gateway
+    ports:
+      - "8080:8080"
+    depends_on:
+      - student
+      - library
+      - mess
+    networks:
+      - micro-net
+
+# ==============================
+# NETWORK
+# ==============================
 networks:
   micro-net:
     driver: bridge
 
+# ==============================
+# VOLUMES
+# ==============================
 volumes:
-  libraryVol:
-  studentVol:
-
-# maintain separate volumes for each service
-# to ensure data persistence and isolation
-# volumes are mounted to the expected paths in the containers
-# this allows for data to be retained even if the containers are recreated
-# otherwise one service loads in another service
-
-# - fullstack:/app
-
-# This line effectively overwrites whatever your Dockerfile placed in /app (which should be studentdb-0.0.1-SNAPSHOT.jar) with the contents of the fullstack named volume on your Docker host.
-
-# If your fullstack volume contains the libraryMicroservice JAR (e.g., if you accidentally built the library service into that volume previously, or if it's pointing to a shared directory that has the wrong JAR), then the student container will end up running the library JAR.
+  student-db-data:
+  library-db-data:
+  mess-db-data:

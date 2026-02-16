@@ -1,34 +1,31 @@
 package com.example.library.model;
-import java.util.List;
 
-import jakarta.persistence.CascadeType;
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.OneToMany;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
+
 @Entity
-@Table(name="library")
+@Table(name = "library")
 public class Library {
-    @Column(name="id")
-    @Id 
+
+    @Id
+    @Column(name = "id")
     private Integer id;
-    @Column(name="course")
+
+    @Column(name = "course")
     private String course;
 
-    @OneToMany(mappedBy = "library", cascade = CascadeType.ALL)
-    private List<Book> books;
+    public Integer getId() {
+        return id;
+    }
 
-    public Integer getId(){
-        return this.id;
-    }
-    public String getCourse(){
-        return this.course;
-    }
-    public void setId(Integer id){
+    public void setId(Integer id) {
         this.id = id;
     }
-    public void setCourse(String subject){
-        this.course = subject;
+
+    public String getCourse() {
+        return course;
+    }
+
+    public void setCourse(String course) {
+        this.course = course;
     }
 }
