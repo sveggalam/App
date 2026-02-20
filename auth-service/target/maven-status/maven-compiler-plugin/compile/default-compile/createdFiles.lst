@@ -1,3 +1,5 @@
+com/example/auth/dto/LoginRequest.class
 com/example/auth/JwtUtil.class
+com/example/auth/config/OpenApiConfig.class
 com/example/auth/AuthServiceApplication.class
 com/example/auth/AuthController.class

@@ -3,6 +3,8 @@ package com.example.studentdb.model;
 import jakarta.validation.constraints.*;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 @Entity
@@ -10,7 +12,7 @@ import jakarta.persistence.Table;
 public class Student {
     @Column(name = "id")
     @Id
-    @NotNull
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
     @Column(name = "first_name")  

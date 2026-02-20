@@ -1,3 +1,5 @@
+/Users/subhashveggalam/Documents/FULLSTACK/App/App/auth-service/src/main/java/com/example/auth/AuthController.java
 /Users/subhashveggalam/Documents/FULLSTACK/App/App/auth-service/src/main/java/com/example/auth/AuthServiceApplication.java
 /Users/subhashveggalam/Documents/FULLSTACK/App/App/auth-service/src/main/java/com/example/auth/JwtUtil.java
-/Users/subhashveggalam/Documents/FULLSTACK/App/App/auth-service/src/main/java/com/example/auth/AuthController.java
+/Users/subhashveggalam/Documents/FULLSTACK/App/App/auth-service/src/main/java/com/example/auth/config/OpenApiConfig.java
+/Users/subhashveggalam/Documents/FULLSTACK/App/App/auth-service/src/main/java/com/example/auth/dto/LoginRequest.java

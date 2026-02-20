@@ -1,7 +1,9 @@
 package com.example.auth;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+
+import com.example.auth.dto.LoginRequest;
+
 import reactor.core.publisher.Mono;
 
 import java.util.Map;
@@ -10,12 +12,17 @@ import java.util.Map;
 @RequestMapping("/auth")
 public class AuthController {
 
-    @Autowired
-    private JwtUtil jwtUtil;
+    private final JwtUtil jwtUtil;
+
+    public AuthController(JwtUtil jwtUtil) {
+        this.jwtUtil = jwtUtil;
+    }
 
     @PostMapping("/login")
-    public Mono<Map<String, String>> login(@RequestParam String username) {
-        String token = jwtUtil.generateToken(username);
+    public Mono<Map<String, String>> login(@RequestBody LoginRequest request) {
+
+        String token = jwtUtil.generateToken(request.getUsername());
+
         return Mono.just(Map.of("token", token));
     }
 }

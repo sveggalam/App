@@ -1,3 +1,4 @@
 /Users/subhashveggalam/Documents/FULLSTACK/App/App/apiGateway/src/main/java/com/example/apiGateWay/ApiGateWayApplication.java
+/Users/subhashveggalam/Documents/FULLSTACK/App/App/apiGateway/src/main/java/com/example/apiGateWay/config/OpenApiConfig.java
 /Users/subhashveggalam/Documents/FULLSTACK/App/App/apiGateway/src/main/java/com/example/apiGateWay/config/SecurityConfig.java
 /Users/subhashveggalam/Documents/FULLSTACK/App/App/apiGateway/src/main/java/com/example/apiGateWay/filter/JwtAuthenticationFilter.java

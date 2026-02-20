@@ -43,8 +43,8 @@ spring:
           uri: http://auth:8079
           predicates:
             - Path=/auth/**
-          filters:
-            - RewritePath=/auth(?<segment>/?.*), ${segment}
+          # filters:
+          #   - RewritePath=/auth(?<segment>/?.*), ${segment}
 
         - id: student-service
           uri: http://student:8081

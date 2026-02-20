@@ -6,27 +6,33 @@ import io.jsonwebtoken.security.Keys;
 import org.springframework.stereotype.Component;
 import org.springframework.beans.factory.annotation.Value;
 
+import java.security.Key;
 import java.util.Date;
 
 @Component
 public class JwtUtil {
 
-    @Value("${jwt.secret}")
-    String secret;
+    private final Key key;
+    private final long expiration;
 
-    @Value("${jwt.expiration}")
-    long expiration;
+    public JwtUtil(
+            @Value("${jwt.secret}") String secret,
+            @Value("${jwt.expiration}") long expiration) {
+
+        this.key = Keys.hmacShaKeyFor(secret.getBytes());
+        this.expiration = expiration;
+    }
 
     public String generateToken(String username) {
-        int roleNum = (int) (Math.random() * 2);
-        String role = roleNum == 0 ? "USER" : "ADMIN";
-        
-        return Jwts.builder() // Create a new JWT builder
-            .setSubject(username) // Set the username as the subject claim
-            .claim("role", role) // Add the role as a custom claim
-            .setIssuedAt(new Date()) // Set the token issuance time to now
-            .setExpiration(new Date(System.currentTimeMillis() + expiration)) // Set expiration time based on configured duration
-            .signWith(Keys.hmacShaKeyFor(secret.getBytes()), SignatureAlgorithm.HS256) // Sign the token with HMAC-SHA256 using the secret key
-            .compact(); // Build and serialize the token to a compact string
+
+        String role = Math.random() < 0.5 ? "USER" : "ADMIN";
+
+        return Jwts.builder()
+                .setSubject(username)
+                .claim("role", role)
+                .setIssuedAt(new Date())
+                .setExpiration(new Date(System.currentTimeMillis() + expiration))
+                .signWith(key, SignatureAlgorithm.HS256)
+                .compact();
     }
 }

@@ -8,7 +8,8 @@ pipeline {
         GIT_REPO = 'https://github.com/sveggalam/App.git'
         GIT_BRANCH = 'main'
         MAVEN_HOME = '/usr/share/maven'
-        JAVA_HOME = '/usr/lib/jvm/java-17-openjdk'
+        JAVA_HOME = '/usr/lib/jvm/java-17-openjdk-amd64'
+        PATH = "${JAVA_HOME}/bin:${MAVEN_HOME}/bin:${PATH}"
     }
 
     options {
@@ -30,12 +31,12 @@ pipeline {
                         branches: [[name: '*/main']],
                         userRemoteConfigs: [[
                             url: 'https://github.com/sveggalam/App.git',
-                            credentialsId: 'github-credentials' // Configure in Jenkins
+                            credentialsId: 'github-creds' // Configure in Jenkins
                         ]]
                     ]
                 )
                 script {
-                    echo "✓ Code fetched successfully from GitHub"
+                    echo "Code fetched successfully from GitHub"
                     echo "Git Commit: ${GIT_COMMIT}"
                     echo "Git Branch: ${GIT_BRANCH}"
                 }
@@ -50,8 +51,8 @@ pipeline {
                             echo '========== Building Auth Service =========='
                             dir('auth-service') {
                                 sh '''
-                                    mvn clean package -DskipTests
-                                    echo "✓ Auth Service built successfully"
+                                    /usr/share/maven/bin/mvn clean package -DskipTests
+                                    echo "Auth Service built successfully"
                                 '''
                             }
                         }
@@ -63,7 +64,7 @@ pipeline {
                             echo '========== Building Student Service =========='
                             dir('studentMicroservice') {
                                 sh '''
-                                    mvn clean package -DskipTests
+                                    /usr/share/maven/bin/mvn clean package -DskipTests
                                     echo "✓ Student Service built successfully"
                                 '''
                             }
@@ -76,7 +77,7 @@ pipeline {
                             echo '========== Building Library Service =========='
                             dir('libraryMicroservice') {
                                 sh '''
-                                    mvn clean package -DskipTests
+                                    /usr/share/maven/bin/mvn clean package -DskipTests
                                     echo "✓ Library Service built successfully"
                                 '''
                             }
@@ -89,7 +90,7 @@ pipeline {
                             echo '========== Building Mess Service =========='
                             dir('messMicroservice') {
                                 sh '''
-                                    mvn clean package -DskipTests
+                                    /usr/share/maven/bin/mvn clean package -DskipTests
                                     echo "✓ Mess Service built successfully"
                                 '''
                             }
@@ -102,7 +103,7 @@ pipeline {
                             echo '========== Building API Gateway =========='
                             dir('apiGateway') {
                                 sh '''
-                                    mvn clean package -DskipTests
+                                    /usr/share/maven/bin/mvn clean package -DskipTests
                                     echo "✓ API Gateway built successfully"
                                 '''
                             }
@@ -126,7 +127,7 @@ pipeline {
                                 echo "Building Docker image for: ''' + service + '''"
                                 docker build -t ${DOCKER_HUB_REPO}/${service}:${imageTag} \
                                            -t ${DOCKER_HUB_REPO}/${service}:latest .
-                                echo "✓ Docker image created: ${DOCKER_HUB_REPO}/${service}:${imageTag}"
+                                echo " Docker image created: ${DOCKER_HUB_REPO}/${service}:${imageTag}"
                             '''
                         }
                     }
@@ -153,7 +154,7 @@ pipeline {
                             services.each { service ->
                                 docker push ${DOCKER_HUB_REPO}/${service}:${imageTag}
                                 docker push ${DOCKER_HUB_REPO}/${service}:latest
-                                echo "✓ Pushed ${DOCKER_HUB_REPO}/${service}"
+                                echo " Pushed ${DOCKER_HUB_REPO}/${service}"
                             }
                             
                             docker logout
@@ -185,19 +186,19 @@ pipeline {
             }
         }
 
-        stage('Deploy to Kubernetes (Manual Trigger)') {
-            when {
-                branch 'main'
-            }
-            steps {
-                script {
-                    echo '========== Ready for Kubernetes Deployment =========='
-                    echo "Run the following to deploy via kubectl or ArgoCD:"
-                    echo "kubectl apply -f k8s/"
-                    echo "Or push changes to git for ArgoCD auto-sync"
-                }
-            }
-        }
+        // stage('Deploy to Kubernetes (Manual Trigger)') {
+        //     when {
+        //         branch 'main'
+        //     }
+        //     steps {
+        //         script {
+        //             echo '========== Ready for Kubernetes Deployment =========='
+        //             echo "Run the following to deploy via kubectl or ArgoCD:"
+        //             echo "kubectl apply -f k8s/"
+        //             echo "Or push changes to git for ArgoCD auto-sync"
+        //         }
+        //     }
+        // }
     }
 
     post {
