@@ -1,0 +1,264 @@
+---
+# Student Database
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: student-db-pv
+spec:
+  capacity:
+    storage: 5Gi
+  accessModes:
+    - ReadWriteOnce
+  hostPath:
+    path: /data/student-db
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: student-db-pvc
+  namespace: databases
+spec:
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 5Gi
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: student-db
+  namespace: databases
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: student-db
+  template:
+    metadata:
+      labels:
+        app: student-db
+    spec:
+      containers:
+      - name: postgres
+        image: postgres:15
+        ports:
+        - containerPort: 5432
+          name: postgres
+        env:
+        - name: POSTGRES_DB
+          value: studentdb
+        - name: POSTGRES_USER
+          valueFrom:
+            secretKeyRef:
+              name: db-credentials
+              key: db-username
+        - name: POSTGRES_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: db-credentials
+              key: db-password
+        volumeMounts:
+        - name: postgres-storage
+          mountPath: /var/lib/postgresql/data
+        resources:
+          requests:
+            memory: "256Mi"
+            cpu: "250m"
+          limits:
+            memory: "512Mi"
+            cpu: "500m"
+      volumes:
+      - name: postgres-storage
+        persistentVolumeClaim:
+          claimName: student-db-pvc
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: student-db
+  namespace: databases
+spec:
+  selector:
+    app: student-db
+  ports:
+  - port: 5432
+    targetPort: 5432
+    name: postgres
+  type: ClusterIP
+---
+# Library Database
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: library-db-pv
+spec:
+  capacity:
+    storage: 5Gi
+  accessModes:
+    - ReadWriteOnce
+  hostPath:
+    path: /data/library-db
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: library-db-pvc
+  namespace: databases
+spec:
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 5Gi
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: library-db
+  namespace: databases
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: library-db
+  template:
+    metadata:
+      labels:
+        app: library-db
+    spec:
+      containers:
+      - name: postgres
+        image: postgres:15
+        ports:
+        - containerPort: 5432
+          name: postgres
+        env:
+        - name: POSTGRES_DB
+          value: librarydb
+        - name: POSTGRES_USER
+          valueFrom:
+            secretKeyRef:
+              name: db-credentials
+              key: db-username
+        - name: POSTGRES_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: db-credentials
+              key: db-password
+        volumeMounts:
+        - name: postgres-storage
+          mountPath: /var/lib/postgresql/data
+        resources:
+          requests:
+            memory: "256Mi"
+            cpu: "250m"
+          limits:
+            memory: "512Mi"
+            cpu: "500m"
+      volumes:
+      - name: postgres-storage
+        persistentVolumeClaim:
+          claimName: library-db-pvc
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: library-db
+  namespace: databases
+spec:
+  selector:
+    app: library-db
+  ports:
+  - port: 5432
+    targetPort: 5432
+    name: postgres
+  type: ClusterIP
+---
+# Mess Database
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: mess-db-pv
+spec:
+  capacity:
+    storage: 5Gi
+  accessModes:
+    - ReadWriteOnce
+  hostPath:
+    path: /data/mess-db
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: mess-db-pvc
+  namespace: databases
+spec:
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 5Gi
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: mess-db
+  namespace: databases
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: mess-db
+  template:
+    metadata:
+      labels:
+        app: mess-db
+    spec:
+      containers:
+      - name: postgres
+        image: postgres:15
+        ports:
+        - containerPort: 5432
+          name: postgres
+        env:
+        - name: POSTGRES_DB
+          value: messdb
+        - name: POSTGRES_USER
+          valueFrom:
+            secretKeyRef:
+              name: db-credentials
+              key: db-username
+        - name: POSTGRES_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: db-credentials
+              key: db-password
+        volumeMounts:
+        - name: postgres-storage
+          mountPath: /var/lib/postgresql/data
+        resources:
+          requests:
+            memory: "256Mi"
+            cpu: "250m"
+          limits:
+            memory: "512Mi"
+            cpu: "500m"
+      volumes:
+      - name: postgres-storage
+        persistentVolumeClaim:
+          claimName: mess-db-pvc
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: mess-db
+  namespace: databases
+spec:
+  selector:
+    app: mess-db
+  ports:
+  - port: 5432
+    targetPort: 5432
+    name: postgres
+  type: ClusterIP

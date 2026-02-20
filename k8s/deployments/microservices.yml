@@ -1,0 +1,380 @@
+---
+# Auth Service
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: auth-service
+  namespace: microservices
+  labels:
+    app: auth-service
+    version: v1
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: auth-service
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxSurge: 1
+      maxUnavailable: 0
+  template:
+    metadata:
+      labels:
+        app: auth-service
+        version: v1
+    spec:
+      imagePullSecrets:
+      - name: dockerhub-secret
+      containers:
+      - name: auth-service
+        image: your-dockerhub-username/auth-service:latest
+        imagePullPolicy: Always
+        ports:
+        - containerPort: 8079
+          name: http
+        env:
+        - name: JAVA_OPTS
+          value: "-Xmx256m -Xms128m"
+        volumeMounts:
+        - name: config
+          mountPath: /etc/config
+          readOnly: true
+        resources:
+          requests:
+            memory: "256Mi"
+            cpu: "250m"
+          limits:
+            memory: "512Mi"
+            cpu: "500m"
+        livenessProbe:
+          httpGet:
+            path: /actuator/health
+            port: 8079
+          initialDelaySeconds: 30
+          periodSeconds: 10
+          timeoutSeconds: 5
+          failureThreshold: 3
+        readinessProbe:
+          httpGet:
+            path: /actuator/health/readiness
+            port: 8079
+          initialDelaySeconds: 10
+          periodSeconds: 5
+          timeoutSeconds: 3
+          failureThreshold: 2
+      volumes:
+      - name: config
+        configMap:
+          name: auth-service-config
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: auth-service
+  namespace: microservices
+  labels:
+    app: auth-service
+spec:
+  selector:
+    app: auth-service
+  ports:
+  - port: 8079
+    targetPort: 8079
+    protocol: TCP
+    name: http
+  type: ClusterIP
+---
+# Student Service
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: student-service
+  namespace: microservices
+  labels:
+    app: student-service
+    version: v1
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: student-service
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxSurge: 1
+      maxUnavailable: 0
+  template:
+    metadata:
+      labels:
+        app: student-service
+        version: v1
+    spec:
+      imagePullSecrets:
+      - name: dockerhub-secret
+      containers:
+      - name: student-service
+        image: your-dockerhub-username/studentMicroservice:latest
+        imagePullPolicy: Always
+        ports:
+        - containerPort: 8081
+          name: http
+        env:
+        - name: JAVA_OPTS
+          value: "-Xmx256m -Xms128m"
+        - name: DB_URL
+          value: "jdbc:postgresql://student-db.databases:5432/studentdb"
+        - name: DB_USER
+          valueFrom:
+            secretKeyRef:
+              name: db-credentials
+              key: db-username
+        - name: DB_PASS
+          valueFrom:
+            secretKeyRef:
+              name: db-credentials
+              key: db-password
+        volumeMounts:
+        - name: config
+          mountPath: /etc/config
+          readOnly: true
+        resources:
+          requests:
+            memory: "256Mi"
+            cpu: "250m"
+          limits:
+            memory: "512Mi"
+            cpu: "500m"
+        livenessProbe:
+          httpGet:
+            path: /actuator/health
+            port: 8081
+          initialDelaySeconds: 30
+          periodSeconds: 10
+          timeoutSeconds: 5
+          failureThreshold: 3
+        readinessProbe:
+          httpGet:
+            path: /actuator/health/readiness
+            port: 8081
+          initialDelaySeconds: 10
+          periodSeconds: 5
+          timeoutSeconds: 3
+          failureThreshold: 2
+      volumes:
+      - name: config
+        configMap:
+          name: student-service-config
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: student-service
+  namespace: microservices
+  labels:
+    app: student-service
+spec:
+  selector:
+    app: student-service
+  ports:
+  - port: 8081
+    targetPort: 8081
+    protocol: TCP
+    name: http
+  type: ClusterIP
+---
+# Library Service
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: library-service
+  namespace: microservices
+  labels:
+    app: library-service
+    version: v1
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: library-service
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxSurge: 1
+      maxUnavailable: 0
+  template:
+    metadata:
+      labels:
+        app: library-service
+        version: v1
+    spec:
+      imagePullSecrets:
+      - name: dockerhub-secret
+      containers:
+      - name: library-service
+        image: your-dockerhub-username/libraryMicroservice:latest
+        imagePullPolicy: Always
+        ports:
+        - containerPort: 8082
+          name: http
+        env:
+        - name: JAVA_OPTS
+          value: "-Xmx256m -Xms128m"
+        - name: DB_URL
+          value: "jdbc:postgresql://library-db.databases:5432/librarydb"
+        - name: DB_USER
+          valueFrom:
+            secretKeyRef:
+              name: db-credentials
+              key: db-username
+        - name: DB_PASS
+          valueFrom:
+            secretKeyRef:
+              name: db-credentials
+              key: db-password
+        volumeMounts:
+        - name: config
+          mountPath: /etc/config
+          readOnly: true
+        resources:
+          requests:
+            memory: "256Mi"
+            cpu: "250m"
+          limits:
+            memory: "512Mi"
+            cpu: "500m"
+        livenessProbe:
+          httpGet:
+            path: /actuator/health
+            port: 8082
+          initialDelaySeconds: 30
+          periodSeconds: 10
+          timeoutSeconds: 5
+          failureThreshold: 3
+        readinessProbe:
+          httpGet:
+            path: /actuator/health/readiness
+            port: 8082
+          initialDelaySeconds: 10
+          periodSeconds: 5
+          timeoutSeconds: 3
+          failureThreshold: 2
+      volumes:
+      - name: config
+        configMap:
+          name: library-service-config
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: library-service
+  namespace: microservices
+  labels:
+    app: library-service
+spec:
+  selector:
+    app: library-service
+  ports:
+  - port: 8082
+    targetPort: 8082
+    protocol: TCP
+    name: http
+  type: ClusterIP
+---
+# Mess Service
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: mess-service
+  namespace: microservices
+  labels:
+    app: mess-service
+    version: v1
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: mess-service
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxSurge: 1
+      maxUnavailable: 0
+  template:
+    metadata:
+      labels:
+        app: mess-service
+        version: v1
+    spec:
+      imagePullSecrets:
+      - name: dockerhub-secret
+      containers:
+      - name: mess-service
+        image: your-dockerhub-username/messMicroservice:latest
+        imagePullPolicy: Always
+        ports:
+        - containerPort: 8083
+          name: http
+        env:
+        - name: JAVA_OPTS
+          value: "-Xmx256m -Xms128m"
+        - name: DB_URL
+          value: "jdbc:postgresql://mess-db.databases:5432/messdb"
+        - name: DB_USER
+          valueFrom:
+            secretKeyRef:
+              name: db-credentials
+              key: db-username
+        - name: DB_PASS
+          valueFrom:
+            secretKeyRef:
+              name: db-credentials
+              key: db-password
+        volumeMounts:
+        - name: config
+          mountPath: /etc/config
+          readOnly: true
+        resources:
+          requests:
+            memory: "256Mi"
+            cpu: "250m"
+          limits:
+            memory: "512Mi"
+            cpu: "500m"
+        livenessProbe:
+          httpGet:
+            path: /actuator/health
+            port: 8083
+          initialDelaySeconds: 30
+          periodSeconds: 10
+          timeoutSeconds: 5
+          failureThreshold: 3
+        readinessProbe:
+          httpGet:
+            path: /actuator/health/readiness
+            port: 8083
+          initialDelaySeconds: 10
+          periodSeconds: 5
+          timeoutSeconds: 3
+          failureThreshold: 2
+      volumes:
+      - name: config
+        configMap:
+          name: mess-service-config
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: mess-service
+  namespace: microservices
+  labels:
+    app: mess-service
+spec:
+  selector:
+    app: mess-service
+  ports:
+  - port: 8083
+    targetPort: 8083
+    protocol: TCP
+    name: http
+  type: ClusterIP

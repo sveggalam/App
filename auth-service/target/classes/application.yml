@@ -1,0 +1,6 @@
+server:
+  port: 8079
+
+jwt:
+  secret: mysecretkeymysecretkeymysecretkeymysecretkey
+  expiration: 3600000

@@ -1,33 +1,77 @@
+# server:
+#   port: 8080
+
+# spring:
+#   cloud:
+#     gateway:
+#       server: 
+#         webflux: 
+#           routes:
+#             - id: student-service
+#               uri: http://student:8081
+#               predicates:
+#                 - Path=/students/**
+#             - id: library-service
+#               uri: http://library:8082
+#               predicates:
+#                 - Path=/library/**
+#             - id: mess-service
+#               uri: http://mess:8083
+#               predicates:
+#                 - Path=/mess/**
+
+# logging:
+#   level:
+#     org:
+#       springframework:
+#         security: DEBUG
+#         cloud:
+#           gateway: DEBUG
+#         web:
+#           reactive:
+#             function:
+#               client: DEBUG
+
 server:
   port: 8080
 
 spring:
   cloud:
     gateway:
-      server: 
-        webflux: 
-          routes:
-            - id: student-service
-              uri: http://student:8081
-              predicates:
-                - Path=/students/**
-            - id: library-service
-              uri: http://library:8082
-              predicates:
-                - Path=/library/**
-            - id: mess-service
-              uri: http://mess:8083
-              predicates:
-                - Path=/mess/**
+      routes:
+        - id: auth-service
+          uri: http://auth:8079
+          predicates:
+            - Path=/auth/**
+          filters:
+            - RewritePath=/auth(?<segment>/?.*), ${segment}
+
+        - id: student-service
+          uri: http://student:8081
+          predicates:
+            - Path=/students/**
+
+        - id: library-service
+          uri: http://library:8082
+          predicates:
+            - Path=/library/**
+
+        - id: mess-service
+          uri: http://mess:8083
+          predicates:
+            - Path=/mess/**
 
 logging:
   level:
     org:
       springframework:
-        security: DEBUG
         cloud:
           gateway: DEBUG
         web:
           reactive:
             function:
               client: DEBUG
+
+jwt:
+  secret: mysecretkeymysecretkeymysecretkeymysecretkey
+  expiration: 3600000

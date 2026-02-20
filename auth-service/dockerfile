@@ -1,0 +1,14 @@
+# Lightweight Java 17 runtime
+FROM eclipse-temurin:17-jre-jammy
+
+# Set working directory
+WORKDIR /app
+
+# Copy built jar into container
+COPY target/*.jar app.jar
+
+# Expose service port
+EXPOSE 8079
+
+# Run application
+ENTRYPOINT ["java", "-jar", "app.jar"]

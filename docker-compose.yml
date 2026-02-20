@@ -101,7 +101,17 @@ services:
       DB_PASS: password
     depends_on:
       - mess-db
-      - student
+    networks:
+      - micro-net
+
+  # ==============================
+  # AUTH SERVICE
+  # ==============================
+  auth:
+    build: ./auth-service
+    container_name: auth
+    ports:
+      - "8079:8079"
     networks:
       - micro-net
 
@@ -117,6 +127,7 @@ services:
       - student
       - library
       - mess
+      - auth
     networks:
       - micro-net
 
